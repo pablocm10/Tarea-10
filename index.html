@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Components</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body { background-color: #f8f9fa; padding-top: 50px; }
+        .card-img-top { background-color: #e9ecef; padding: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="container">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Chuck Norris Facts</h1>
+        </header>
+
+        <!-- Bootstrap Grid Row -->
+        <div class="row g-4">
+            <!-- 
+                col-12: Full width on mobile
+                col-md-4: 3 cards per line on medium/large screens (12 / 4 = 3)
+            -->
+            <div class="col-12 col-md-4" v-for="(fact, index) in chuck" :key="index">
+                <chuck-card 
+                    :icon="fact.icon_url" 
+                    :text="fact.value">
+                </chuck-card>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Define the Component
+const ChuckCard = {
+    props: ['icon', 'text'],
+    template: `
+        <!-- Añadimos la clase 'card-hover' al div principal de la tarjeta -->
+        <div class="card h-100 shadow-sm ">
+            <div class="p-3 text-center">
+                <img :src="icon" class="card-img-top" style="width: 120px;">
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ text }}</p>
+            </div>
+        </div>
+    `
+};
+
+        createApp({
+            components: {
+                'chuck-card': ChuckCard
+            },
+            data() {
+                return {
+                    chuck: [ 
+                        { "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rL8A3tlOa_LmtgK_C9IICh3kXh0lq1WeVw&s", "value": "Chuck Norris can skydive into outer space." }, 
+                        { "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rL8A3tlOa_LmtgK_C9IICh3kXh0lq1WeVw&s", "value": "The chief export of Chuck Norris is pain." }, 
+                        { "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rL8A3tlOa_LmtgK_C9IICh3kXh0lq1WeVw&s", "value": "Chuck Norris doesn't read books. He stares them down until he gets the information he wants." }, 
+                        { "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rL8A3tlOa_LmtgK_C9IICh3kXh0lq1WeVw&s", "value": "Time waits for no man. Unless that man is Chuck Norris." }, 
+                        { "icon_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5rL8A3tlOa_LmtgK_C9IICh3kXh0lq1WeVw&s", "value": "If you spell Chuck Norris in Scrabble, you win. Forever." }
+                    ]
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
